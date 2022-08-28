@@ -1,0 +1,4 @@
+ensure (hostname, IP)
+
+[ ] refacto ensureReverse and ensureStraight
+[ ] error handling on NSUpdater.Ensure and NSUpdater.Delete

@@ -1,0 +1,5 @@
+.env
+*.yml
+*.json
+fixtures
+phpipam2dns
