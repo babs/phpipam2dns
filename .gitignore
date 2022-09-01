@@ -1,5 +1,7 @@
+dist
 .env
-*.yml
-*.json
+.vscode
+config.yml
+state.json
 fixtures
 phpipam2dns

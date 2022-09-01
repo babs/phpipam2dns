@@ -2,3 +2,5 @@ ensure (hostname, IP)
 
 [ ] refacto ensureReverse and ensureStraight
 [ ] error handling on NSUpdater.Ensure and NSUpdater.Delete
+
+[ ] Take a look at go:generate and go:embed for build chain instead of ldflags ?

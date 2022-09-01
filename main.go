@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"os"
 	"path"
 	"runtime"
@@ -15,6 +16,16 @@ import (
 func main() {
 	initlog()
 
+	skipState := flag.Bool("skip-state", false, "Skip state")
+	onlyOnce := flag.Bool("once", false, "run once")
+	shVer := flag.Bool("version", false, "show version")
+	flag.Parse()
+
+	if *shVer {
+		fmt.Println(BuildVersion())
+		return
+	}
+
 	config := new(Config)
 	config.Load("config.yml")
 	// fmt.Println(serverconfig)
@@ -23,10 +34,6 @@ func main() {
 	nsu.Init(*config)
 
 	state := NewState("state.json")
-
-	skipState := flag.Bool("skip-state", false, "Skip state")
-	onlyOnce := flag.Bool("once", false, "run once")
-	flag.Parse()
 
 	if *skipState {
 		state.MaxId = 0
