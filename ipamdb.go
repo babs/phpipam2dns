@@ -40,7 +40,7 @@ func (i *IpamDB) Open(dsn string) *IpamDB {
 	if err != nil {
 		panic(err)
 	}
-	log.Debug("Connected to database")
+	log.Info("Connected to database")
 
 	db.SetConnMaxIdleTime(time.Minute * 3)
 	db.SetMaxOpenConns(10)
@@ -49,7 +49,7 @@ func (i *IpamDB) Open(dsn string) *IpamDB {
 }
 
 var changelogHostnameFinder = regexp.MustCompile(`\[hostname\]. (.+)\r`)
-var changelogIPFinder = regexp.MustCompile(`\[ip_addr\]\. (.*?)\r`)
+var changelogIPFinder = regexp.MustCompile(`\[ip_addr\]. (.*?)\r`)
 
 func (i *IpamDB) ProcessChangelogRecords(resumeFrom int, clrprocessor func(ChangelogRecord) bool) {
 	i.db.QueryRow("SELECT MAX(cid) FROM changelog").Scan(&i.maxlogid)
@@ -64,7 +64,7 @@ func (i *IpamDB) ProcessChangelogRecords(resumeFrom int, clrprocessor func(Chang
 		AND cid > ? AND cid <= ?
 		AND cresult = 'success'
 		AND ctype = 'ip_addr'
-		AND cdiff LIKE '%\n[hostname]. %'
+		AND ( cdiff LIKE '%\n[hostname]_ %' OR cdiff LIKE '[hostname]_ %' )
 		`, resumeFrom, i.maxlogid)
 	if err != nil {
 		panic(err)

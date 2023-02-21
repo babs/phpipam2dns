@@ -44,7 +44,7 @@ func main() {
 	defer ipamdb.Close()
 	for {
 		ipamdb.ProcessChangelogRecords(state.MaxId, func(record ChangelogRecord) bool {
-			log.Debugf(
+			log.Infof(
 				"changeid=%v  action=%v  object[type=%v id=%v] => hostname:%v  ip:%v\n",
 				record.cid,
 				record.caction,
