@@ -1,7 +1,7 @@
 package main
 
 import (
-	"io/ioutil"
+	"os"
 
 	"github.com/miekg/dns"
 	"gopkg.in/yaml.v3"
@@ -21,7 +21,7 @@ type ServerDefinition struct {
 }
 
 func (s *Config) Load(configfile string) *Config {
-	data, err := ioutil.ReadFile(configfile)
+	data, err := os.ReadFile(configfile)
 	if err != nil {
 		panic(err)
 	}

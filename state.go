@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"os"
 )
 
 type State struct {
@@ -21,7 +21,7 @@ func NewState(fname string) *State {
 }
 
 func (s *State) Load() *State {
-	data, _ := ioutil.ReadFile(s.filename)
+	data, _ := os.ReadFile(s.filename)
 	json.Unmarshal(data, &s)
 	return s
 }
@@ -32,7 +32,7 @@ func (s *State) Save() {
 	}
 	s.writeRequired = false
 	jsonString, _ := json.Marshal(s)
-	ioutil.WriteFile(s.filename, jsonString, 0644)
+	os.WriteFile(s.filename, jsonString, 0644)
 }
 
 func (s *State) SetMaxId(maxid int) *State {
